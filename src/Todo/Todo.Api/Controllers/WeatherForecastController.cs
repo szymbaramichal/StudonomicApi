@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Studonomic.Api.Controllers;
+namespace Todo.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]

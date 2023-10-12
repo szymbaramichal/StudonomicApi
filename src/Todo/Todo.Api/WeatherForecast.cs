@@ -1,4 +1,4 @@
-namespace Studonomic.Api;
+namespace Todo.Api;
 
 public class WeatherForecast
 {
