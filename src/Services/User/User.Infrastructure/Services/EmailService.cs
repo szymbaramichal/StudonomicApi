@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using User.Application.Contracts.Infrastructure;
-using User.Application.Models;
+using User.Application.Models.Emails;
 
 namespace User.Infrastructure.Services
 {

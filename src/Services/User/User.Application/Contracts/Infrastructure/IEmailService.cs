@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using User.Application.Models;
+using User.Application.Models.Emails;
 
 namespace User.Application.Contracts.Infrastructure
 {

@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  userdb:
+    container_name: userdb
+    environment:
+        MSSQL_SA_PASSWORD: "Kwakwa5!"
+        ACCEPT_EULA: "Y"
+    restart: always
+    ports:
+        - "1433:1433"
+
+  user.api:
+    container_name: user.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:UsersConnectionString=Server=tcp:localhost;Database=UserDb;User Id=sa;Password=Kwakwa5!;"  
+    depends_on:
+      - userdb
+    ports:
+      - "8000:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

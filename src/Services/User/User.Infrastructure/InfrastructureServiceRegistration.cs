@@ -14,7 +14,8 @@ public static class InfrastructureServiceRegistration
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<UserContext>(opt => opt.UseSqlServer(configuration["UsersConnectionString"]));
+        var test = configuration.GetConnectionString("UsersConnectionString");
+        services.AddDbContext<UserContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("UsersConnectionString")));
         
         services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
         services.AddScoped<ITodoRepository, TodoRepository>();
