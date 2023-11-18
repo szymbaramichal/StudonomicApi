@@ -1,4 +1,6 @@
-namespace User.Domain.Common;
+using User.Domain.Common;
+
+namespace User.Domain.Entities;
 
 public class Todo : EntityBase
 {

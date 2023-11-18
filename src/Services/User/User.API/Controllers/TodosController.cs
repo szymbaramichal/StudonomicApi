@@ -20,9 +20,9 @@ namespace User.API.Controllers;
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet("{dateTime}", Name = "GetOrder")]
+        [HttpGet("{dateTime}", Name = "GetTodoByDateTime")]
         [ProducesResponseType(typeof(IEnumerable<TodoViewModel>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<TodoViewModel>>> GetOrdersByUserName(DateTime dateTime)
+        public async Task<ActionResult<IEnumerable<TodoViewModel>>> GetTodoByDateTime(DateTime dateTime)
         {
             var query = new GetTodosListQuery(dateTime);
             var orders = await _mediator.Send(query);
