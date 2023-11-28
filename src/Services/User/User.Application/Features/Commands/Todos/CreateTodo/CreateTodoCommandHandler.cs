@@ -3,9 +3,9 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using User.Application.Contracts.Persistence;
 using User.Application.Models.Todos;
-using User.Domain.Common;
+using User.Domain.Entities;
 
-namespace User.Application.Features.Commands.CreateTodo;
+namespace User.Application.Features.Commands.Todos.CreateTodo;
 
 public class CreateTodoCommandHandler : IRequestHandler<CreateTodoCommand, TodoViewModel>
 {
@@ -15,9 +15,9 @@ public class CreateTodoCommandHandler : IRequestHandler<CreateTodoCommand, TodoV
 
     public CreateTodoCommandHandler(IMapper mapper, ITodoRepository todoRepository, ILogger<CreateTodoCommandHandler> logger)
     {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));;
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));;
-        _todoRepository = todoRepository ?? throw new ArgumentNullException(nameof(todoRepository));;
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        _todoRepository = todoRepository ?? throw new ArgumentNullException(nameof(todoRepository));
     }
 
     public async Task<TodoViewModel> Handle(CreateTodoCommand command, CancellationToken cancellationToken)

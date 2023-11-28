@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using User.Application.Contracts.Persistence;
 
-namespace User.Application.Features.Commands.DeleteTodo;
+namespace User.Application.Features.Commands.Todos.DeleteTodo;
 
 public class DeleteTodoCommandHandler : IRequestHandler<DeleteTodoCommand>
 {
@@ -18,14 +18,7 @@ public class DeleteTodoCommandHandler : IRequestHandler<DeleteTodoCommand>
 
     public async Task<Unit> Handle(DeleteTodoCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _todoRepository.GetByIdAsync(request.Id);
-
-        if(entity is null)
-        {
-
-        }
-
-        await _todoRepository.DeleteAsync(entity);
+        await _todoRepository.DeleteTodo(request.Id);
 
         return Unit.Value;
     }

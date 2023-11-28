@@ -1,8 +1,8 @@
 using AutoMapper;
-using User.Application.Features.Commands.CreateTodo;
-using User.Application.Features.Commands.UpdateTodo;
+using User.Application.Features.Commands.Todos.CreateTodo;
+using User.Application.Features.Commands.Todos.UpdateTodo;
 using User.Application.Models.Todos;
-using User.Domain.Common;
+using User.Domain.Entities;
 
 namespace User.Application.Mappings;
 

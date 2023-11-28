@@ -1,4 +1,4 @@
-namespace User.Application.Features.Commands.Shared;
+namespace User.Application.Features.Commands.Todos.Shared;
 
 public abstract class UpsertTodoCommandBase
 {

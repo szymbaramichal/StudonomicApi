@@ -1,9 +1,10 @@
 using FluentValidation;
 
-namespace User.Application.Features.Commands.CreateTodo;
-public class CreateTodoCommandValidator : AbstractValidator<CreateTodoCommand>
+namespace User.Application.Features.Commands.Todos.UpdateTodo;
+
+public class UpdateTodoCommandValidator : AbstractValidator<UpdateTodoCommand>
 {
-    public CreateTodoCommandValidator()
+    public UpdateTodoCommandValidator()
     {
         RuleFor(p => p.Title)
             .NotEmpty().WithMessage("{Title} is required.")

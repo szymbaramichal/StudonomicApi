@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using User.Application.Contracts.Persistence;
+using User.Application.Exceptions;
 using User.Domain.Common;
 using User.Infrastructure.Persistence;
 
@@ -11,7 +12,7 @@ namespace User.Infrastructure.Repositories
         protected readonly UserContext _context;
 
         public RepositoryBase(UserContext context)
-        {
+        { 
             _context = context;
         }
 
@@ -20,12 +21,6 @@ namespace User.Infrastructure.Repositories
             _context.Set<T>().Add(entity);
             await _context.SaveChangesAsync();
             return entity;
-        }
-
-        public async Task DeleteAsync(T entity)
-        {
-            _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<IReadOnlyList<T>> GetAllAsync()
@@ -38,7 +33,8 @@ namespace User.Infrastructure.Repositories
             return await _context.Set<T>().Where(predicate).ToListAsync();
         }
 
-        public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, List<Expression<Func<T, object>>> includes = null, bool disableTracking = true)
+        public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, 
+        IOrderedQueryable<T>> orderBy = null, List<Expression<Func<T, object>>> includes = null, bool disableTracking = true)
         {
             IQueryable<T> query = _context.Set<T>();
             if (disableTracking) query = query.AsNoTracking();

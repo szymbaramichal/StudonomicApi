@@ -1,10 +1,9 @@
-using System.Runtime.InteropServices;
 using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using User.Application.Contracts.Persistence;
 
-namespace User.Application.Features.Commands.UpdateTodo;
+namespace User.Application.Features.Commands.Todos.UpdateTodo;
 
 public class UpdateTodoCommandHandler : IRequestHandler<UpdateTodoCommand>
 {

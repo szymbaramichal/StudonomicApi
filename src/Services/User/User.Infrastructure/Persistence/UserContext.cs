@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using User.Domain.Common;
+using User.Domain.Entities;
 
 namespace User.Infrastructure.Persistence;
 
@@ -8,6 +9,7 @@ public class UserContext : DbContext
     public UserContext(DbContextOptions<UserContext> options) : base(options) { }
 
     public DbSet<Todo> Todos { get; set; }
+    public DbSet<Label> Labels { get; set; }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
@@ -27,5 +29,15 @@ public class UserContext : DbContext
         }
 
         return base.SaveChangesAsync(cancellationToken);
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Todo>()
+            .HasOne<Label>(t => t.Label)
+            .WithMany(l => l.Todos)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
