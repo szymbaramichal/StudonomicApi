@@ -8,14 +8,16 @@ namespace User.Application.Features.Commands.Todos.UpdateTodo;
 public class UpdateTodoCommandHandler : IRequestHandler<UpdateTodoCommand>
 {
     private readonly ITodoRepository _todoRepository;
+    private readonly ILabelsRepository _labelsRepository;
     private readonly IMapper _mapper;
     private readonly ILogger<UpdateTodoCommandHandler> _logger;
 
-    public UpdateTodoCommandHandler(ITodoRepository todoRepository, IMapper mapper, ILogger<UpdateTodoCommandHandler> logger)
+    public UpdateTodoCommandHandler(ITodoRepository todoRepository, IMapper mapper, ILogger<UpdateTodoCommandHandler> logger, ILabelsRepository labelsRepository)
     {
         _todoRepository = todoRepository;
         _mapper = mapper;
         _logger = logger;
+        _labelsRepository = labelsRepository;
     }
 
     public async Task<Unit> Handle(UpdateTodoCommand request, CancellationToken cancellationToken)
@@ -28,6 +30,13 @@ public class UpdateTodoCommandHandler : IRequestHandler<UpdateTodoCommand>
         }
 
         _mapper.Map(request, entity);
+
+        if(request.LabelId != 0)
+        {
+            var label = await _labelsRepository.GetByIdAsync(request.LabelId);
+
+            entity.Label = label;
+        }
 
         await _todoRepository.UpdateAsync(entity);
 
