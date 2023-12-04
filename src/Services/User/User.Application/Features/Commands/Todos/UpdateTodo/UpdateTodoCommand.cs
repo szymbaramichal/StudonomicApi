@@ -7,4 +7,5 @@ public class UpdateTodoCommand : UpsertTodoCommandBase, IRequest
 {
     public int Id { get; set; }
     public int LabelId { get; set; }
+    public bool IsDone { get; set; }
 }
