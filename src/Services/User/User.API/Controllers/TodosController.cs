@@ -20,6 +20,10 @@ public class TodosController : ControllerBase
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
 
+    /// <summary>
+    /// Get todos for specific date
+    /// </summary>
+    /// <param name="dateTime">Date time</param>
     [HttpGet("{dateTime}")]
     [ProducesResponseType(typeof(IEnumerable<TodoViewModel>), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<IEnumerable<TodoViewModel>>> GetTodoByDateTime(DateTime dateTime)
@@ -29,24 +33,37 @@ public class TodosController : ControllerBase
         return Ok(orders);
     }
 
+    /// <summary>
+    /// Create new todo
+    /// </summary>
+    /// <param name="command">Request body</param>
     [HttpPost]
     [ProducesResponseType((int)HttpStatusCode.OK)]
-    public async Task<ActionResult<int>> CreateTodo([FromBody] CreateTodoCommand command)
+    public async Task<ActionResult<int>> CreateTodo(CreateTodoCommand command)
     {
         var result = await _mediator.Send(command);
         return Ok(result);
     }
 
+    /// <summary>
+    /// Update existing todo
+    /// </summary>
+    /// <param name="command">Request body</param>
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult> UpdateTodo([FromBody] UpdateTodoCommand command)
+    public async Task<ActionResult> UpdateTodo(UpdateTodoCommand command)
     {
         await _mediator.Send(command);
         return NoContent();
     }
 
+    /// <summary>
+    /// Delete existing todo
+    /// </summary>
+    /// <param name="id">Todo id</param>
+    /// <returns></returns>
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

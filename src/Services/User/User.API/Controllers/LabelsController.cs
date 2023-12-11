@@ -1,8 +1,8 @@
-using System.Net;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using User.Application.Features.Commands.Labels.CreateLabel;
 using User.Application.Features.Commands.Labels.UpdateLabel;
+using User.Application.Models.Labels;
 
 namespace User.API.Controllers;
 
@@ -14,32 +14,45 @@ public class LabelsController : ControllerBase
 
     public LabelsController(IMediator mediator)
     {
-        _mediator = mediator  ?? throw new ArgumentNullException(nameof(mediator));;
+        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));;
     }
 
+    /// <summary>
+    /// Create new label for todos
+    /// </summary>
+    /// <param name="command">Request body</param>
     [HttpPost]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
-    public async Task<ActionResult<int>> CreateLabel([FromBody] CreateLabelCommand command)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<LabelViewModel>> CreateLabel(CreateLabelCommand command)
     {
         var result = await _mediator.Send(command);
         return Ok(result);
     }
 
+
+    /// <summary>
+    /// Update existing label
+    /// </summary>
+    /// <param name="command">Request body</param>
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult> UpdateLabel([FromBody] UpdateLabelCommand command)
+    public async Task<ActionResult> UpdateLabel(UpdateLabelCommand command)
     {
         await _mediator.Send(command);
         return NoContent();
     }
 
+    /// <summary>
+    /// Delete existing label
+    /// </summary>
+    /// <param name="id">Label id</param>
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult> DeleteTodo(int id)
+    public async Task<ActionResult> DeleteLabel(int id)
     {
         var command = new DeleteLabelCommand() { Id = id };
         await _mediator.Send(command);
