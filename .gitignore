@@ -1,4 +1,5 @@
 .vscode
+.vs
 
 [Dd]ebug/
 [Rr]elease/
@@ -7,3 +8,5 @@ x64/
 [Oo]bj/
 
 *.obj
+
+*.db
